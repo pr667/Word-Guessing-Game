@@ -1,10 +1,28 @@
-Current word: _ _ _ _ _ _
-Guess a letter: a
-Incorrect! Attempts left: 5
+import random
 
-Current word: _ _ _ _ _ _
-Guess a letter: p
-Current word: p _ _ _ _ _
+word_bank = ["python", "java", "kotlin", "javascript"]
+word = random.choice(word_bank)
+guessed_word = ["_"] * len(word)
 
-Current word: p y t h o n
-Congratulations! You guessed the word: python
+attempts = 6  # set number of attempts
+
+while attempts > 0:
+    print('\nCurrent word: ' + ' '.join(guessed_word))
+    guess = input('Guess a letter: ').lower()
+
+    if guess in word:
+        for i in range(len(word)):
+            if word[i] == guess:
+                guessed_word[i] = guess
+    else:
+        attempts -= 1
+        print('Incorrect! Attempts left: ' + str(attempts))
+
+    if "_" not in guessed_word:
+        print('Congratulations! You guessed the word: ' + word)
+        break
+
+    if attempts == 0 and "_" in guessed_word:
+        print('Game over! The word was: ' + word)
+        break
+    
