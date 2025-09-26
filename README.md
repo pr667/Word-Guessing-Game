@@ -1,19 +1,28 @@
-# Word-Guessing-Game
-A simple word guessing game where players try to uncover a hidden word by guessing letters within limited attempts
+import random
 
-# Word Guessing Game
+word_bank = ["python", "java", "kotlin", "javascript"]
+word = random.choice(word_bank)
+guessed_word = ["_"] * len(word)
 
-A simple word guessing game where players try to uncover a hidden word by guessing letters within a limited number of attempts.
+attempts = 6  # set number of attempts
 
-## How to Play
-- The game randomly selects a word.
-- You guess one letter at a time.
-- Correct guesses reveal the letter in the word.
-- Wrong guesses reduce your remaining attempts.
-- The game ends when you guess the word or run out of attempts.
+while attempts > 0:
+    print('\nCurrent word: ' + ' '.join(guessed_word))
+    guess = input('Guess a letter: ').lower()
 
-## Getting Started
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/word-guessing-game.git
+    if guess in word:
+        for i in range(len(word)):
+            if word[i] == guess:
+                guessed_word[i] = guess
+    else:
+        attempts -= 1
+        print('Incorrect! Attempts left: ' + str(attempts))
 
+    if "_" not in guessed_word:
+        print('Congratulations! You guessed the word: ' + word)
+        break
+
+    if attempts == 0 and "_" in guessed_word:
+        print('Game over! The word was: ' + word)
+        break
+    
